@@ -54,4 +54,11 @@ public class PostService {
                 .orElse(0);
         return ++currentMaxId;
     }
+
+    public Post getPostById(Long id) {
+        if (id == null || !posts.containsKey(id)){
+            return null;
+        }
+        return posts.get(id);
+    }
 }

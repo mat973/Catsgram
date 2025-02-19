@@ -68,4 +68,11 @@ public class UserService {
                 .orElse(0);
         return ++currentMaxId;
     }
+
+    public User getUserById(Long id) {
+        if (id == null  || !users.containsKey(id)){
+            return null;
+        }
+        return users.get(id);
+    }
 }

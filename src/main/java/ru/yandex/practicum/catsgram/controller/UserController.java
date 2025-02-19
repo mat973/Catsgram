@@ -35,6 +35,11 @@ private final UserService userService;
         return userService.update(newUser);
     }
 
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable("id") Long id){
+        return userService.getUserById(id);
+    }
+
 
 
 }
