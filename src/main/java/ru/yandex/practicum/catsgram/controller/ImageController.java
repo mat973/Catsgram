@@ -34,7 +34,7 @@ public class ImageController {
         headers.setContentDisposition(
                 ContentDisposition.attachment()
                         .filename(imageData.getName())
-                        .build() 
+                        .build()
         );
 
         return new ResponseEntity<>(imageData.getData(), headers, HttpStatus.OK);

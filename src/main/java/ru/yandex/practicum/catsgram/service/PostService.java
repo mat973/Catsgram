@@ -17,27 +17,27 @@ public class PostService {
     private final Map<Long, Post> posts = new HashMap<>();
 
     public Collection<Post> findAll(Optional<Integer> size, Optional<Integer> from, Optional<String> sort) {
-        if (size.isEmpty() && from.isEmpty() && sort.isEmpty() ){
+        if (size.isEmpty() && from.isEmpty() && sort.isEmpty()) {
             return posts.values();
         }
-        if (size.isEmpty()){
+        if (size.isEmpty()) {
             throw new SortParamException("Неверные параметры запроса");
         }
-        if (from.isEmpty()){
+        if (from.isEmpty()) {
             from = Optional.of(0);
         }
-        if ( size.get() < 1 || from.get()< 0){
+        if (size.get() < 1 || from.get() < 0) {
             throw new SortParamException("Неверные параметры запроса");
         }
 
         return posts.values().stream().sorted((x1, x2) -> {
-            if (sort.get().equals("asc"))
-            return Comparator.comparing(Post::getPostDate).compare(x1, x2);
-            else if (sort.get().equals("desc")) {
-             return Comparator.comparing(Post::getPostDate).compare(x2,x1);
-            }else {
-                throw new SortParamException("Неверные параметры запроса");
-            }
+                    if (sort.get().equals("asc"))
+                        return Comparator.comparing(Post::getPostDate).compare(x1, x2);
+                    else if (sort.get().equals("desc")) {
+                        return Comparator.comparing(Post::getPostDate).compare(x2, x1);
+                    } else {
+                        throw new SortParamException("Неверные параметры запроса");
+                    }
 
                 })
                 .skip(from.get())
@@ -45,8 +45,8 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Post> findById(Long id){
-        if (!posts.containsKey(id)){
+    public Optional<Post> findById(Long id) {
+        if (!posts.containsKey(id)) {
             return Optional.empty();
         }
         return Optional.of(posts.get(id));
@@ -88,7 +88,7 @@ public class PostService {
     }
 
     public Post getPostById(Long id) {
-        if (id == null || !posts.containsKey(id)){
+        if (id == null || !posts.containsKey(id)) {
             return null;
         }
         return posts.get(id);

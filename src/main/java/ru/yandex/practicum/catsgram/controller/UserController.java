@@ -1,10 +1,8 @@
 package ru.yandex.practicum.catsgram.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 import ru.yandex.practicum.catsgram.service.UserService;
 
@@ -14,7 +12,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-private final UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -38,10 +36,9 @@ private final UserService userService;
     }
 
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable("id") Long id){
+    public User getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
-
 
 
 }

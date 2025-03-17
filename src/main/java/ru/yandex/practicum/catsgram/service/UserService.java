@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.DuplicatedDataException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
-import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
@@ -24,16 +23,17 @@ public class UserService {
     public User create(User user) {
         if (user.getEmail() == null) {
             throw new ConditionsNotMetException("Имейл должен быть указан");
-        }else if (users.values().stream().map(User::getEmail).anyMatch(x -> x.equals(user.getEmail()))) {
-                throw new DuplicatedDataException("Этот имейл уже используется");
+        } else if (users.values().stream().map(User::getEmail).anyMatch(x -> x.equals(user.getEmail()))) {
+            throw new DuplicatedDataException("Этот имейл уже используется");
         }
         user.setId(getNextId());
         user.setRegistrationDate(Instant.now());
         users.put(user.getId(), user);
         return user;
     }
-    public Optional<User> findById(Long id){
-        if (!users.containsKey(id)){
+
+    public Optional<User> findById(Long id) {
+        if (!users.containsKey(id)) {
             return Optional.empty();
         }
         return Optional.of(users.get(id));
@@ -46,18 +46,18 @@ public class UserService {
 
         if (users.containsKey(newUser.getId())) {
             User oldUser = users.get(newUser.getId());
-            if (!oldUser.getEmail().equals(newUser.getEmail())){
+            if (!oldUser.getEmail().equals(newUser.getEmail())) {
                 if (users.values().stream().map(User::getEmail).anyMatch(x ->
                         x.equals(newUser.getEmail())))
-                            throw new DuplicatedDataException("Этот имейл уже используется");
+                    throw new DuplicatedDataException("Этот имейл уже используется");
                 else {
                     oldUser.setEmail(newUser.getEmail());
                 }
 
-                if (newUser.getUsername() != null){
+                if (newUser.getUsername() != null) {
                     oldUser.setUsername(newUser.getUsername());
                 }
-                if (newUser.getPassword() != null){
+                if (newUser.getPassword() != null) {
                     oldUser.setPassword(newUser.getPassword());
                 }
             }
@@ -77,7 +77,7 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        if (id == null  || !users.containsKey(id)){
+        if (id == null || !users.containsKey(id)) {
             return null;
         }
         return users.get(id);
