@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -30,6 +31,12 @@ public class UserService {
         user.setRegistrationDate(Instant.now());
         users.put(user.getId(), user);
         return user;
+    }
+    public Optional<User> findById(Long id){
+        if (!users.containsKey(id)){
+            return Optional.empty();
+        }
+        return Optional.of(users.get(id));
     }
 
     public User update(User newUser) {
